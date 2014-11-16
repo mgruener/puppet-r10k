@@ -49,6 +49,9 @@ class r10k::config (
   $owner = 'root',
   $group = 'root',
   $mode  = '0644',
+  $cachedirmode = '0755',
+  $cachedirowner = 'root',
+  $cachedirgroup = 'root',
 ){
 
   file { "${path}":
@@ -59,4 +62,10 @@ class r10k::config (
     content => template('r10k/r10k.yaml.erb'),
   }
 
+  file { $cachedir:
+    ensure => 'directory',
+    owner   => $cachedirowner,
+    group   => $cachedirgroup,
+    mode    => $cachedirmode,
+  }
 }
